@@ -6,7 +6,6 @@
     <title>Download Table</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        
         .logo-container {
             display: flex;
             justify-content: center;
@@ -19,31 +18,32 @@
             margin-bottom: 20px;
         }
 
+        .form-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
         .logo {
-            width: 200px; 
+            width: 300px; 
             height: auto;
         }
 
-        
         @media screen {
-            .logo {
+            .logo,.print-only {
                 display: none;
             }
         }
 
-        @media screen {
-            .header {
-                display: none;
-            }
-        }
-
-      
         @media print {
             .hide-on-print {
                 display: none;
             }
 
-            
+            .print-only {
+                display: block !important;
+            }
+
             @page {
                 size: landscape;
             }
@@ -52,66 +52,157 @@
 </head>
 <body class="bg-gray-100 p-8">
     <div class="container mx-auto">
-        
         <div class="logo-container">
-            <img class="logo" src="./Assets/img/upsa_logo.png" alt="Logo"><br>
+            <img class="logo" src="./Assets/img/upsa_logo.png" alt="Logo">
+            
+              
         </div>
         <div class="header-container">
-            <div class="header">
-            <h1> Welcome to the print preview</h1>
-        </div>
+            
+            <div class="print-only bg-blue-500 py-4">
+                <h1 class="block text-gray-700 text-sm font-bold mb-2 capitalize">Quarterly Reporting of Progress on UPSA Strategic Plan Initiatives</h1>
+              </div>
+              
         </div>
 
-        <div class="flex justify-between mb-4">
-            <button onclick="printTable()" class="hide-on-print bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Print</button>
-            <button onclick="downloadPDF()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Download PDF</button>
-        </div>
-        <input type="text" id="filterInput" onkeyup="filterTable()" class="mb-4 px-4 py-2 w-full border rounded" placeholder="Filter by name...">
-        <div class="flex items-center mb-4 space-x-4">
-            <div>
-                <label class="block text-gray-700">Select Year:</label>
-                <select id="periodSelect" onchange="filterTable()" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="">All</option>
-                </select>
+        <form class="hide-on-print mb-4">
+            <div class="mb-4">
+                <input type="text" id="filterInput" class="px-4 py-2 w-full border rounded" placeholder="Filter by name...">
             </div>
-            
-            <div>
-                <label class="block text-gray-700">Select Strategic Focus:</label>
-                <select id="unitSelect" onchange="filterTable()" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="">All</option>
-                    <option value="PEOPLE">PEOPLE </option>
-                    <option value="PROCESSES">PROCESSES</option>
-                    <option value="PLANET">PLANET</option>
-                    <option value="RELEVANCE">RELEVANCE</option>
-                    <option value="IMPACT">IMPACT</option>
-                    <option value="SUSTAINABILITY">SUSTAINABILITY</option>
-                    <option value="CONTINUOUS IMPROVEMENT">CONTINUOUS IMPROVEMENT</option>
-                    
-                </select>
+            <div class="flex items-center space-x-4 mb-4">
+                <div>
+                    <input type="text" id="yearInput" class="px-4 py-2 w-full border rounded" placeholder="Enter Year">
+                </div>
+                <div>
+                    <input type="text" id="focusInput" class="px-4 py-2 w-full border rounded" placeholder="Enter Strategic Focus">
+                </div>
             </div>
-        </div>
+            <div>
+                <button onclick="printTable()" class="hide-on-print bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Print</button>
+                <button onclick="downloadPDF()" class="hide-on-print bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Download PDF</button>
+            </div>
+        </form>
+        
         <table id="dataTable" class="min-w-full bg-white border rounded-lg overflow-hidden">
-            <thead class="bg-gray-100 uppercase text-gray-600 text-sm leading-normal">
+            <thead class="hide-on-print bg-gray-100 uppercase text-gray-600 text-sm leading-normal">
                 <tr>
-                    <th class="py-3 px-6 text-left">Strategic Focus</th>
-                    <th class="py-3 px-6 text-left">Age</th>
-                    <th class="py-3 px-6 text-left">Email</th>
+                    <th class="hide-on-print py-3 px-6 text-left">Strategic Focus</th>
+                    <th class="hide-on-print py-3 px-6 text-left">Age</th>
+                    <th class="hide-on-print py-3 px-6 text-left">Email</th>
                 </tr>
             </thead>
-            <tbody id="dataBody" class="text-gray-600 text-sm font-light">
+            <tbody id="dataBody" class="hide-on-print text-gray-600 text-sm font-light">
                 <tr>
-                    <td class="py-3 px-6 border-b border-gray-200">PEOPLE</td>
-                    <td class="py-3 px-6 border-b border-gray-200">30</td>
-                    <td class="py-3 px-6 border-b border-gray-200">john@example.com</td>
+                    <td class="hide-on-print py-3 px-6 border-b border-gray-200">PEOPLE</td>
+                    <td class="hide-on-print py-3 px-6 border-b border-gray-200">30</td>
+                    <td class="hide-on-print py-3 px-6 border-b border-gray-200">john@example.com</td>
                 </tr>
                 <tr>
                     <td class="py-3 px-6 border-b border-gray-200">Jane Smith</td>
                     <td class="py-3 px-6 border-b border-gray-200">25</td>
                     <td class="py-3 px-6 border-b border-gray-200">jane@example.com</td>
                 </tr>
-               
             </tbody>
         </table>
+<br>
+       
+        <div class="print-only">
+            <div class="container mx-auto ">
+                <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto">
+                    <div class="mb-4">
+                      <label class="block text-gray-700 text-sm font-bold mb-2" for="responsible_person">
+                        Name of Responsible Person
+                      </label>
+                      <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="responsible_person" type="text" placeholder="John Doe" disabled>
+                    </div>
+                    <div class="mb-4">
+                      <label class="block text-gray-700 text-sm font-bold mb-2" for="year">
+                        Year
+                      </label>
+                      <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="year" type="text" placeholder="2024" disabled>
+                    </div>
+                    <div class="mb-4">
+                      <label class="block text-gray-700 text-sm font-bold mb-2" for="reporting_quarter">
+                        Reporting Quarter
+                      </label>
+                      <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="reporting_quarter" type="text" placeholder="Q1" disabled>
+                    </div>
+                    <div class="mb-4">
+                      <label class="block text-gray-700 text-sm font-bold mb-2" for="center_school_faculty_unit">
+                        Name of Centre/School/Faculty/Unit/etc:
+                      </label>
+                      <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="center_school_faculty_unit" type="text" placeholder="Center 1" disabled>
+                    </div>
+                  </div>
+                <table class="min-w-full bg-gray-100 uppercase text-gray-600 text-sm leading-normal">
+                    <thead>
+                        <tr>
+                            <th class="border px-4 py-2 text-left">Strategic Focus</th>
+                            <th class="border px-4 py-2 text-left">Strategic Objective</th>
+                            <th class="border px-4 py-2 text-left">Strategic Initiative</th>
+                            <th class="border px-4 py-2 text-left">Commencement Date</th>
+                            <th class="border px-4 py-2 text-left">Completion Date</th>
+                            <th class="border px-4 py-2 text-left">Update/Progress Made in Quarter</th>
+                            <th class="border px-4 py-2 text-left">Status</th>
+                        </tr>
+                    </thead><br>
+                    <tbody>
+                        <tr>
+                            <td class="border px-4 py-2">Strategic Focus 1</td>
+                            <td class="border px-4 py-2">Strategic Objective 1</td>
+                            <td class="border px-4 py-2">Strategic Initiative 1</td>
+                            <td class="border px-4 py-2">YYYY-MM-DD</td>
+                            <td class="border px-4 py-2">YYYY-MM-DD</td>
+                            <td class="border px-4 py-2">Progress Update</td>
+                            <td class="border px-4 py-2">Status</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><br><br><br>
+            <div class="bg-blue-500 py-4">
+                <h1 class="text-white text-center text-lg font-bold mb-2 capitalize">Notes on Completing the Template</h1>
+              </div>
+              <div class="max-w-4xl mx-auto mt-8">
+                <div class="grid grid-cols-1 gap-1">
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2">Strategic Focus</h2>
+                    <p class="text-gray-700">This should be any of the seven (7) Strategic Focus /pillars in the Strategic Plan: They are: People, Processes, Planet, Relevance, Impact, Sustainability and Continuous Improvement.</p>
+                  </div>
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2">Strategic Objective No</h2>
+                    <p class="text-gray-700">This is the objective number under the Strategic Focus you have quoted in the first column.</p>
+                  </div>
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2">Strategic Initiatives</h2>
+                    <p class="text-gray-700">This is the specific strategic initiative in the Strategic Plan that is assigned to you under the Strategic Focus you have quoted in the first column.</p>
+                  </div>
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2">Commencement Date</h2>
+                    <p class="text-gray-700">This should be the commencement date stated in the Strategic Plan for a Strategic Initiative.</p>
+                  </div>
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2">Completion Date</h2>
+                    <p class="text-gray-700">This should be the commencement date stated in the Strategic Plan for a Strategic Initiative.</p>
+                  </div>
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2">Update / Progress Made in the Quarter</h2>
+                    <p class="text-gray-700">This is to contain a report on that specified Strategic Initiative you are providing to Management and Council.</p>
+                  </div>                    
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2">Status</h2>
+                    <p class="text-gray-700">You are to state one of these statuses for each Strategic Initiatives for the reporting quarter.</p>
+                  </div>
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2"></h2>
+                    <p class="text-gray-700">Each row in the table should be used for only one Strategic Initiative assigned to you (and /or Directorate/Centre/Faculty/Department/etc). The Strategic Initiatives should also follow the same pattern. .</p>
+                  </div>
+                  <div class="bg-gray-100 p-4 rounded-md">
+                    <h2 class="text-gray-800 text-lg font-bold mb-2"></h2>
+                    <p class="text-gray-700">The listing of the Strategic Focus in the table should follow the arrangement in the Strategic Plan, with People being first and Continuous Improvement being last.</p>
+                  </div>
+                </div>
+              </div> 
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
     <script>
@@ -125,31 +216,32 @@
             doc.save('table.pdf');
         }
 
+        const yearInput = document.getElementById('yearInput');
+        const focusInput = document.getElementById('focusInput');
+
+        yearInput.addEventListener('input', function() {
+            filterTable();
+        });
+
+        focusInput.addEventListener('input', function() {
+            filterTable();
+        });
+
         function filterTable() {
-            const period = document.getElementById('periodSelect').value;
-            const unit = document.getElementById('unitSelect').value.toLowerCase();
-            const input = document.getElementById('filterInput').value.toLowerCase();
+            const year = yearInput.value.toLowerCase();
+            const focus = focusInput.value.toLowerCase();
             const rows = document.querySelectorAll('#dataBody tr');
             rows.forEach(row => {
                 const name = row.getElementsByTagName('td')[0].innerText.toLowerCase();
                 const age = parseInt(row.getElementsByTagName('td')[1].innerText);
-                if ((unit === '' || name.includes(unit)) && (period === '' || (age >= parseInt(period) && age < parseInt(period) + 10)) && (input === '' || name.includes(input))) {
+                if ((year === '' || name.includes
+(year)) && (focus === '' || name.includes(focus))) {
                     row.style.display = "";
                 } else {
                     row.style.display = "none";
                 }
             });
         }
-
-        const yearSelect = document.getElementById('periodSelect');
-    const currentYear = new Date().getFullYear();
-
-    for (let year = currentYear; year >= currentYear - 10; year--) {
-        const option = document.createElement('option');
-        option.value = year;
-        option.textContent = year;
-        yearSelect.appendChild(option);
-    } 
     </script>
 </body>
 </html>
